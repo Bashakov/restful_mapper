@@ -268,8 +268,8 @@ protected:
 
 TEST_F(ModelTest, ClassName)
 {
-  ASSERT_STREQ("Todo", Todo::class_name().c_str());
-  ASSERT_STREQ("Zipcode", Zipcode::class_name().c_str());
+  ASSERT_STREQ("class Todo", Todo::class_name().c_str());
+  ASSERT_STREQ("class Zipcode", Zipcode::class_name().c_str());
 }
 
 TEST_F(ModelTest, GetItem)

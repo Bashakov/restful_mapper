@@ -109,6 +109,7 @@ public:
   virtual void clear(const bool &keep_clean = false) { clear_(0, keep_clean); };
 };
 
+#if 0 // disabled because conflict with std::time_t
 template <>
 class Field<long long> : public FieldBase<long long>
 {
@@ -121,6 +122,7 @@ public:
   virtual std::string name() { return type_info_name(typeid(long long)); }
   virtual void clear(const bool &keep_clean = false) { clear_(0, keep_clean); };
 };
+#endif
 
 template <>
 class Field<double> : public FieldBase<double>

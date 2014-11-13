@@ -354,7 +354,7 @@ TEST(FieldTest, Stream)
 
 TEST(FieldTest, FieldAssignment)
 {
-  Field<long long> f1;
+  Field<int> f1;
   Field<int> f2;
   Field<bool> f3;
   Field<bool> f4;
