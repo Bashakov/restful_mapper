@@ -175,20 +175,33 @@ public:
 
   static Collection find_all()
   {
-    Collection objects;
-
+    typedef std::vector<std::string> Strings;
     Json::Parser collector(Api::get(T().url()));
 
-    std::vector<std::string> partials = collector.find("objects").dump_array();
-    std::vector<std::string>::const_iterator i, i_end = partials.end();
+	int num_results = collector.find("num_results");
+	int page = collector.find("page");
+	int total_pages = collector.find("total_pages");
 
-    for (i = partials.begin(); i != i_end; ++i)
-    {
-      T instance;
-      instance.from_json(*i, 0, true);
+	Collection objects;
+	objects.reserve(num_results);
 
-      objects.push_back(instance);
-    }
+	for (; page <= total_pages; ++page)
+	{
+		if(page > 1)
+		{
+			char buf[16];
+			std::string url = Api::query_param(T().url(), "page", itoa(page, buf, 10));
+			collector.load(Api::get(url));
+		}
+		Strings partials = collector.find("objects").dump_array();
+		Strings::const_iterator i, i_end = partials.end();
+		for (i = partials.begin(); i != i_end; ++i)
+		{
+			T instance;
+			instance.from_json(*i, 0, true);
+			objects.push_back(instance);
+		}
+	}
 
     return objects;
   }
