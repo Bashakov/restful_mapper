@@ -203,7 +203,7 @@ public:
       Json::Parser parser(json_struct);
       what_ = parser.find("message").to_string();
     }
-    catch (std::runtime_error &e)
+    catch (std::runtime_error & /*e*/)
     {
       // Swallow
     }
@@ -247,7 +247,7 @@ public:
         separator = "\n";
       }
     }
-    catch (std::runtime_error &e)
+    catch (std::runtime_error & /*e*/)
     {
       // Swallow
     }
