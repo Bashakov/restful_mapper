@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include <restful_mapper/api.h>
 #include <restful_mapper/meta.h>
 #include <curl/curl.h>

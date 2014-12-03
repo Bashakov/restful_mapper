@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include <restful_mapper/internal/utf8.h>
 #include <sstream>
 #include <iconv.h>

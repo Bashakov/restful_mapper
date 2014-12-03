@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include <restful_mapper/json.h>
 #include <restful_mapper/internal/utf8.h>
 #include <cstring>
