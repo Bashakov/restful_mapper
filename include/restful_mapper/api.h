@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <map>
 #include <cctype>
+#include <sstream>
 #include <restful_mapper/json.h>
 
 namespace restful_mapper
@@ -344,6 +345,28 @@ private:
     formatted[0] = std::toupper(formatted[0]);
     return formatted;
   }
+};
+
+class NoObjectError: public ApiError
+{
+public:
+	explicit NoObjectError(const RequestType & type, const std::string & url)
+		: ApiError("", 404)
+	{
+		static const char * methods[] = {"GET", "POST", "PUT", "DEL"};
+		std::ostringstream s;
+		s << "No Object found (404) at request [" << methods[type] << "] \"" << url << "\"" ;
+		what_.swap(s.str());
+	}
+	virtual ~NoObjectError() throw() {}
+
+	virtual const char *what() const throw()
+	{
+		return what_.c_str();
+	}
+
+private:
+	std::string what_;
 };
 
 }

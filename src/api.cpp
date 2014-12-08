@@ -3,7 +3,6 @@
 #include <restful_mapper/api.h>
 #include <restful_mapper/meta.h>
 #include <curl/curl.h>
-#include <sstream>
 #include <cstdlib>
 #include <cstring>
 
@@ -347,6 +346,11 @@ void Api::check_http_error(const RequestType &type, const string &endpoint, long
   if (http_code == 401)
   {
     throw AuthenticationError();
+  }
+
+  if (http_code == 404)
+  {
+    throw NoObjectError(type,  url(endpoint));
   }
 
   // Handle other errors
