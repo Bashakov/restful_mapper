@@ -147,7 +147,10 @@ public:
     std::map<std::string, bool> to_bool_map() const;
 
     operator std::string() const { return to_string(); }
+#pragma warning(push)
+#pragma warning(disable: 4244)
     operator int() const { return to_int(); }
+#pragma warning(pop)
     operator long long() const { return to_int(); }
     operator double() const { return to_double(); }
     operator bool() const { return to_bool(); }

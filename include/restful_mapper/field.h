@@ -104,7 +104,10 @@ public:
   Field() : FieldBase<int>() { value_ = 0; }
   const int &operator=(const int &value) { return set(value); }
   const Field<int> &operator=(const FieldBase<int> &value) { set(value); is_null_ = value.is_null(); return *this; }
+#pragma warning(push)
+#pragma warning(disable: 4244)
   const Field<int> &operator=(const FieldBase<long long> &value) { set(value); is_null_ = value.is_null(); return *this; }
+ #pragma warning(pop)
   virtual std::string name() { return type_info_name(typeid(int)); }
   virtual void clear(const bool &keep_clean = false) { clear_(0, keep_clean); };
 };
