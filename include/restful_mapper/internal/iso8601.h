@@ -224,8 +224,10 @@ inline std::time_t from_iso8601(std::string descriptor)
   std::time_t t_local = std::mktime(&t);
   std::tm tm_utc(*std::gmtime(&t_local));
   std::time_t t_utc = std::mktime(&tm_utc);
+#pragma warning(push)
+#pragma warning(disable: 4244)
   tz_offset += (t_utc - t_local);
-
+#pragma warning(pop)
   return std::mktime(&t) - tz_offset;
 }
 
