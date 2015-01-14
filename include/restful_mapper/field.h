@@ -419,13 +419,15 @@ public:
  *
  * Can only be set once, otherwise it will throw.
  */
-class Primary : public FieldBase<long long>
+typedef long long PrimaryKeyType;
+
+class Primary : public FieldBase<PrimaryKeyType>
 {
 public:
   // Inherit from FieldBase
-  Primary() : FieldBase<long long>(), is_assigned_(false) { value_ = 0; }
-  const long long &operator=(const long long &value) { return set(value); }
-  virtual std::string name() { return type_info_name(typeid(long long)); }
+  Primary() : FieldBase<PrimaryKeyType>(), is_assigned_(false) { value_ = 0; }
+  const PrimaryKeyType &operator=(const PrimaryKeyType &value) { return set(value); }
+  virtual std::string name() { return type_info_name(typeid(PrimaryKeyType)); }
   virtual void clear(const bool &keep_clean = false) { clear_(0, keep_clean); };
 
   operator std::string() const
@@ -435,7 +437,7 @@ public:
     return s.str();
   }
 
-  const long long &set(const long long &value, const bool &keep_clean = false)
+  const PrimaryKeyType &set(const PrimaryKeyType &value, const bool &keep_clean = false)
   {
     if (is_assigned_ && value != value_)
     {
@@ -443,7 +445,7 @@ public:
     }
 
     is_assigned_ = true;
-    return FieldBase<long long>::set(value, keep_clean);
+    return FieldBase<PrimaryKeyType>::set(value, keep_clean);
   }
 
 protected:
@@ -454,15 +456,15 @@ protected:
  * @brief Represents the foreign key column of a database object.
  */
 template <class T>
-class Foreign : public FieldBase<long long>
+class Foreign : public FieldBase<PrimaryKeyType>
 {
 public:
   // Inherit from FieldBase
-  Foreign() : FieldBase<long long>() { value_ = 0; }
-  const long long &operator=(const long long &value) { return set(value); }
-  const Foreign &operator=(const FieldBase<long long> &value) { set(value); is_null_ = value.is_null(); return *this; }
+  Foreign() : FieldBase<PrimaryKeyType>() { value_ = 0; }
+  const PrimaryKeyType &operator=(const PrimaryKeyType &value) { return set(value); }
+  const Foreign &operator=(const FieldBase<PrimaryKeyType> &value) { set(value); is_null_ = value.is_null(); return *this; }
   const Foreign &operator=(const FieldBase<int> &value) { set(value); is_null_ = value.is_null(); return *this; }
-  virtual std::string name() { return type_info_name(typeid(long long)); }
+  virtual std::string name() { return type_info_name(typeid(PrimaryKeyType)); }
   virtual void clear(const bool &keep_clean = false) { clear_(0, keep_clean); };
 
   const std::string &class_name() const

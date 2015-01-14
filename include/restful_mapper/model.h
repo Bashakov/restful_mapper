@@ -190,7 +190,10 @@ public:
 		if(page > 1)
 		{
 			char buf[16];
+#pragma warning(push)
+#pragma warning(disable:4996)
 			std::string url = Api::query_param(T().url(), "page", itoa(page, buf, 10));
+#pragma warning(pop)
 			collector.load(Api::get(url));
 		}
 		Strings partials = collector.find("objects").dump_array();
